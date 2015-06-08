@@ -103,7 +103,7 @@ namespace VendingMachine
                     Console.WriteLine("=============== Out Of Stock!! ================");
                     Thread.Sleep(1000);
                     break;
-                case MachineEvent.SystemErr:
+                case MachineEvent.DrinkNotFound:
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.WriteLine("=============== System Error!! ================");
                     Thread.Sleep(1000);

@@ -10,7 +10,7 @@ namespace VendingMachine
         NoChange,
         InsufficientCoins,
         OutOfStock,
-        SystemErr
+        DrinkNotFound
     }
 
     public class VendingMachine
@@ -49,28 +49,32 @@ namespace VendingMachine
 
         public MachineEvent BuyCan(string choice)
         {
+            // Find the price of the drink
             int price;
             if (!DrinksPrices.TryGetValue(choice, out price))
             {
-                return MachineEvent.SystemErr;
+                return MachineEvent.DrinkNotFound;
             }
 
+            // Check if the user has inserted sufficient credits
             if (UserChange.Value < price)
             {
                 return MachineEvent.InsufficientCoins;
             }
 
+            // Check if the machine has stock of the drink
             int amount;
             if (!DrinksQuantity.TryGetValue(choice, out amount))
             {
-                return MachineEvent.SystemErr;
+                return MachineEvent.DrinkNotFound;
             }
-
+        
             if (amount == 0)
             {
                 return MachineEvent.OutOfStock;
             }
 
+            // Figure out the change
             Change output;
             if (!price.MakeChange(UserChange, out output))
             {
@@ -80,13 +84,16 @@ namespace VendingMachine
                 {
                     return MachineEvent.NoChange;
                 }
-
+                
                 AvailableChange.Subtract(output);
+                UserChange = output;
+            }
+            else
+            {
+                UserChange.Subtract(output);
             }
 
-            if (!UserChange.Subtract(output))
-                UserChange = output;
-
+            // Update the drinks quantity
             if (amount > 1) 
             {
                 DrinksQuantity[choice] = amount - 1;
