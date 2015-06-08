@@ -26,9 +26,9 @@ namespace VendingMachine
         {
             if(choice == null) return MachineEvent.DrinkNotFound;
 
-            // Find the price of the drink
-            int amount;
-            if (!Drinks.TryGetValue(choice, out amount))
+            // Find the quantity of the drink
+            int quantity;
+            if (!Drinks.TryGetValue(choice, out quantity))
             {
                 return MachineEvent.DrinkNotFound;
             }
@@ -39,7 +39,7 @@ namespace VendingMachine
                 return MachineEvent.InsufficientCoins;
             }
         
-            if (amount == 0)
+            if (quantity == 0)
             {
                 return MachineEvent.OutOfStock;
             }
@@ -67,11 +67,11 @@ namespace VendingMachine
             }
 
             // Update the drinks quantity
-            if (amount > 1) 
+            if (quantity > 1) 
             {
-                Drinks[choice] = amount - 1;
+                Drinks[choice] = quantity - 1;
             }
-            else if (amount == 1)
+            else if (quantity == 1)
             {
                 Drinks.Remove(choice); 
             }
