@@ -24,6 +24,8 @@ namespace VendingMachine
 
         public MachineEvent BuyCan(Drink choice)
         {
+            if(choice == null) return MachineEvent.DrinkNotFound;
+
             // Find the price of the drink
             int amount;
             if (!Drinks.TryGetValue(choice, out amount))
@@ -42,12 +44,12 @@ namespace VendingMachine
                 return MachineEvent.OutOfStock;
             }
 
-            // Figure out the change
             Change output;
-            // Exact change
+            // Give exact change
             if (choice.Price.MakeChange(UserChange, out output))
             {
                 UserChange.Subtract(output);
+                AvailableChange.Add(output);
             }
             else // Make Change from machine available change
             {
