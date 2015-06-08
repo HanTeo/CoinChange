@@ -1,45 +1,20 @@
 ﻿using System.Collections.Generic;
-using Lib;
 using CoinChangeCalculator;
+using Lib;
 
 namespace VendingMachine
 {
-    public enum MachineEvent
-    {
-        Success,
-        NoChange,
-        InsufficientCoins,
-        OutOfStock,
-        DrinkNotFound
-    }
-
     public class VendingMachine
     {
-        public readonly Change AvailableChange = new Change();
-        public Change UserChange = new Change();
-        public Dictionary<string, int> DrinksQuantity { get; private set; }
-        public Dictionary<string, int> DrinksPrices { get; private set; }
+        public Change AvailableChange { get; private set; }
+        public Change UserChange { get; private set; }
+        public Dictionary<Drink, int> Drinks { get; private set; } 
 
         public VendingMachine()
         {
-            // 100 x 1p, 50 x 5p, 50 x 10p
-            AvailableChange.Add(new Coin("1p", 1), count: 100)
-                .Add(new Coin("5p", 5), count: 50)
-                .Add(new Coin("10p", 10), count: 50);
-
-            DrinksQuantity = new Dictionary<string, int>
-            {
-                { "Coke", 10 },
-                { "Pepsi", 10 },
-                { "7Up", 10 },
-            };
-
-            DrinksPrices = new Dictionary<string, int>
-            {
-                { "Coke", 32 },
-                { "Pepsi", 30 },
-                { "7Up", 25 },
-            };
+            AvailableChange = new Change();
+            UserChange = new Change();
+            Drinks = new Dictionary<Drink, int>();
         }
 
         public void InsertCoin(Coin coin)
@@ -47,26 +22,19 @@ namespace VendingMachine
             UserChange.Add(coin);
         }
 
-        public MachineEvent BuyCan(string choice)
+        public MachineEvent BuyCan(Drink choice)
         {
             // Find the price of the drink
-            int price;
-            if (!DrinksPrices.TryGetValue(choice, out price))
+            int amount;
+            if (!Drinks.TryGetValue(choice, out amount))
             {
                 return MachineEvent.DrinkNotFound;
             }
 
             // Check if the user has inserted sufficient credits
-            if (UserChange.Value < price)
+            if (UserChange.Value < choice.Price)
             {
                 return MachineEvent.InsufficientCoins;
-            }
-
-            // Check if the machine has stock of the drink
-            int amount;
-            if (!DrinksQuantity.TryGetValue(choice, out amount))
-            {
-                return MachineEvent.DrinkNotFound;
             }
         
             if (amount == 0)
@@ -76,31 +44,34 @@ namespace VendingMachine
 
             // Figure out the change
             Change output;
-            if (!price.MakeChange(UserChange, out output))
+            // Exact change
+            if (choice.Price.MakeChange(UserChange, out output))
+            {
+                UserChange.Subtract(output);
+            }
+            else // Make Change from machine available change
             {
                 var combined = new Change(AvailableChange).Add(UserChange);
-                var expectedChange = UserChange.Value - price;
+
+                var expectedChange = UserChange.Value - choice.Price;
                 if (!expectedChange.MakeChange(combined, out output))
                 {
                     return MachineEvent.NoChange;
                 }
-                
+
+                AvailableChange.Add(UserChange);
                 AvailableChange.Subtract(output);
                 UserChange = output;
-            }
-            else
-            {
-                UserChange.Subtract(output);
             }
 
             // Update the drinks quantity
             if (amount > 1) 
             {
-                DrinksQuantity[choice] = amount - 1;
+                Drinks[choice] = amount - 1;
             }
             else if (amount == 1)
             {
-                DrinksQuantity.Remove(choice); 
+                Drinks.Remove(choice); 
             }
 
             return MachineEvent.Success;
