@@ -24,7 +24,7 @@ namespace VendingMachine
                 {
                     Console.WriteLine("|           {0} : {1} Cans Left                     |", kv.Key, kv.Value);
                 }
-                Console.WriteLine("|             User Credits:  {0}                     |", vendingMachine.InputChange);
+                Console.WriteLine("|             User Credits:  {0}                     |", vendingMachine.UserChange);
                 Console.WriteLine("|             Machine Credits:  {0}                     |", vendingMachine.AvailableChange);
                 Console.WriteLine("========      [Please Select An Option]    =========");
                 Console.ForegroundColor = ConsoleColor.Green;

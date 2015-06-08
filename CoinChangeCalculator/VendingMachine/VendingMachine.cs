@@ -16,7 +16,7 @@ namespace VendingMachine
     public class VendingMachine
     {
         public readonly Change AvailableChange = new Change();
-        public Change InputChange = new Change();
+        public Change UserChange = new Change();
         public Dictionary<string, int> DrinksQuantity { get; private set; }
         public Dictionary<string, int> DrinksPrices { get; private set; }
 
@@ -44,7 +44,7 @@ namespace VendingMachine
 
         public void InsertCoin(Coin coin)
         {
-            InputChange.Add(coin);
+            UserChange.Add(coin);
         }
 
         public MachineEvent BuyCan(string choice)
@@ -55,7 +55,7 @@ namespace VendingMachine
                 return MachineEvent.SystemErr;
             }
 
-            if (InputChange.Value < price)
+            if (UserChange.Value < price)
             {
                 return MachineEvent.InsufficientCoins;
             }
@@ -72,10 +72,10 @@ namespace VendingMachine
             }
 
             Change output;
-            if (!price.MakeChange(InputChange, out output))
+            if (!price.MakeChange(UserChange, out output))
             {
-                var combined = new Change(AvailableChange).Add(InputChange);
-                var expectedChange = InputChange.Value - price;
+                var combined = new Change(AvailableChange).Add(UserChange);
+                var expectedChange = UserChange.Value - price;
                 if (!expectedChange.MakeChange(combined, out output))
                 {
                     return MachineEvent.NoChange;
@@ -84,8 +84,8 @@ namespace VendingMachine
                 AvailableChange.Subtract(output);
             }
 
-            if (!InputChange.Subtract(output))
-                InputChange = output;
+            if (!UserChange.Subtract(output))
+                UserChange = output;
 
             if (amount > 1) 
             {
