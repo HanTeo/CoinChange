@@ -20,6 +20,16 @@ namespace Lib
             }
         }
 
+        public Change Add(Change change)
+        {
+            foreach (var c in change.Coins)
+            {
+                Add(c);
+            }
+
+            return this;
+        }
+
         public int Value
         {
             get
@@ -80,6 +90,18 @@ namespace Lib
                 return false;
             }
 
+            return true;
+        }
+
+        public bool Subtract(Change change)
+        {
+            if (change.Value <= 0)
+                return false;
+
+            foreach (var coin in change.Coins)
+            {
+                if (!Subtract(coin)) return false;
+            }
             return true;
         }
 

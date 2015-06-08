@@ -53,6 +53,16 @@
     <Compile Include="CoinChangeCalculatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CoinChangeCalculator\CoinChangeCalculator.csproj">
+      <Project>{4b85a562-784d-4bf5-9022-3df5f1d3676a}</Project>
+      <Name>CoinChangeCalculator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lib\Lib.csproj">
+      <Project>{87A3050D-2C61-4729-B623-8B304D9F8E3E}</Project>
+      <Name>Lib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
