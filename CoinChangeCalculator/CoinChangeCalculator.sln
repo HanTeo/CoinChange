@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine", "VendingMa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine.Tests", "VendingMachine.Tests\VendingMachine.Tests.csproj", "{40D9C945-10DC-40C2-8AD2-7EE329BD34A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinChangeCalculator.Specs", "CoinChangeCalculator.Specs\CoinChangeCalculator.Specs.csproj", "{622987D7-2E40-453D-B86E-F93758F7F7C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{40D9C945-10DC-40C2-8AD2-7EE329BD34A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40D9C945-10DC-40C2-8AD2-7EE329BD34A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40D9C945-10DC-40C2-8AD2-7EE329BD34A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{622987D7-2E40-453D-B86E-F93758F7F7C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{622987D7-2E40-453D-B86E-F93758F7F7C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{622987D7-2E40-453D-B86E-F93758F7F7C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{622987D7-2E40-453D-B86E-F93758F7F7C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
