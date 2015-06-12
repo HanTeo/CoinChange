@@ -177,5 +177,30 @@ namespace VendingMachine.Tests
             Assert.AreEqual(userChange, vendingMachine.UserChange.ToString());
             Assert.AreEqual(machineBalance, vendingMachine.AvailableChange.Value);
         }
+
+
+        [TestMethod]
+        public void Cannot_make_change_from_insufficient_amount()
+        {
+            // Arrange : 40p Inserted but no enough amount for change
+            vendingMachine.AvailableChange.Clear();
+            vendingMachine.AvailableChange.Add(OnePence, 5);
+            var originalCount = vendingMachine.Drinks.Values.Sum();
+            vendingMachine.InsertCoin(TenPence);
+            vendingMachine.InsertCoin(TenPence);
+            vendingMachine.InsertCoin(TenPence);
+            vendingMachine.InsertCoin(TenPence);
+            var machineBalance = vendingMachine.AvailableChange.Value;
+            var userChange = vendingMachine.UserChange.ToString();
+
+            // Act : buys Coke for 32p
+            var result = vendingMachine.BuyCan(Coke);
+
+            // Assert : expects fail, user credits unchanged, machine credits unchanged
+            Assert.AreEqual(result, MachineEvent.NoChange);
+            Assert.AreEqual(originalCount, vendingMachine.Drinks.Values.Sum());
+            Assert.AreEqual(userChange, vendingMachine.UserChange.ToString());
+            Assert.AreEqual(machineBalance, vendingMachine.AvailableChange.Value);
+        }
     }
 }
