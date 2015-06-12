@@ -31,9 +31,9 @@ namespace CoinChangeCalculator.Specs
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "CoinChangeCalculator", "In order to give change\nAs a calculator\nI need to calculate the appropriate numbe" +
-                    "r of coins for each available denomination of coins that adds up to the change a" +
-                    "mount", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "CoinChangeCalculator", "In order to give correct change\nAs a calculator\nI need to calculate the appropria" +
+                    "te number of coins for each available denomination of coins that adds up to the " +
+                    "change amount", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -71,11 +71,11 @@ namespace CoinChangeCalculator.Specs
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Make Correct Change")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Can Make Correct Change")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CoinChangeCalculator")]
-        public virtual void MakeCorrectChange()
+        public virtual void CanMakeCorrectChange()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Make Correct Change", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Can Make Correct Change", ((string[])(null)));
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 7

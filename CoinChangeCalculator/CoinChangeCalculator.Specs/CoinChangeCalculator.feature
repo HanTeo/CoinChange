@@ -1,16 +1,16 @@
 ﻿Feature: CoinChangeCalculator
-	In order to give change
+	In order to give correct change
 	As a calculator
 	I need to calculate the appropriate number of coins for each available denomination of coins that adds up to the change amount
 
-Scenario: Make Correct Change
+Scenario: Can Make Correct Change
 	Given I have a target amount of 62 which to make change for
 	And I have the available coins each have values
 		|	Denomination	|	Value	|
-		|	2p				|	2			|
-		|	5p				|	5			|
-		|	10p				|	10			|
-		|	50p				|	50			|
+		|	2p				|	2		|
+		|	5p				|	5		|
+		|	10p				|	10		|
+		|	50p				|	50		|
 	And I have the denominations each are of quantities
 		|	Denomination	|	Quantity	|
 		|	2p				|	1			|
